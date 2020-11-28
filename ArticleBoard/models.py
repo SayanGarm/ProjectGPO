@@ -8,6 +8,9 @@ class Article(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.PROTECT, verbose_name='Автор')
     document = models.FileField()
     
+    def __str__(self):
+        return self.title
+
     def delete(self, *args, **kwargs):
         self.document.delete(save=False)
         super().delete(*args, **kwargs)

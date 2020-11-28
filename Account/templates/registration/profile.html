@@ -1,0 +1,18 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+  <h1>{{profile.user}}</h1>  
+  <h1>{{profile.first_name}}</h1>
+  <h1>{{profile.middle_name}}</h1>
+  <h1>{{profile.last_name}}</h1>
+  <h1>{{profile.email}}</h1>
+
+  <h1>МОИ СТАТЬИ</h1>
+
+    {% for article in articles %}
+        <p>{{article.title}}</p>
+    {% endfor %}
+
+{% endblock %}

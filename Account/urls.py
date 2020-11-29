@@ -1,9 +1,10 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import ProfileView
+from .views import UserPage, ModeratorPage, StartPageSwitch
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('profile/', ProfileView.as_view() ,name='profile')
+    path('profile/', StartPageSwitch ,name='start-page-switch'),
+
 ]

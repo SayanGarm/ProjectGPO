@@ -3,16 +3,65 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-  <h1>{{profile.user}}</h1>  
-  <h1>{{profile.first_name}}</h1>
-  <h1>{{profile.middle_name}}</h1>
-  <h1>{{profile.last_name}}</h1>
-  <h1>{{profile.email}}</h1>
 
-  <h1>МОИ СТАТЬИ</h1>
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Мои данные</h5>
+			<hr>
+        <p>Логин: {{profile.user}}</p>
+        <p>Имя: {{profile.first_name}}</p>
+        <p>Отчество: {{profile.middle_name}}</p>
+        <p>Фамилия: {{profile.last_name}}</p>
+        <p>Email-адрес: {{profile.email}}</p>
+		</div>
+	</div>
 
-    {% for article in articles %}
-        <p>{{article.title}}</p>
-    {% endfor %}
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Кол-во статей</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{articles_count}}</h1>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+				{{form}}
+		    <button class="btn btn-primary" type="submit">Поиск</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Название</th>
+					<th>Дата публикации</th>
+					<th>Автор</th>
+					<th>Документ</th>
+				</tr>
+				{% for article in articles %}
+					<tr>
+						<td>{{article.title}}</td>
+						<td>{{article.published}}</td>
+						<td>{{article.author}}</td>
+						<td><a href="{{article.document.url}}">Ссылка</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

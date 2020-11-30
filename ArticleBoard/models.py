@@ -13,7 +13,7 @@ class Article(models.Model):
     content = models.TextField(null=True, blank=True, verbose_name='Описание')
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')
     author = models.ForeignKey(User, null=True, on_delete=models.PROTECT, verbose_name='Автор')
-    document = models.FileField()
+    document = models.FileField(verbose_name='Документ')
 
     status = models.CharField(max_length=20, default='C', choices=STATUS, verbose_name='Статус')
     

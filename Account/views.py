@@ -25,12 +25,18 @@ class UserPage(View):
         form.is_valid()
 
         articles = Article.objects.filter(author=request.user)
+        articles_count = {
+            'A': articles.filter(status='A').count(),
+            'B': articles.filter(status='B').count(),
+            'C': articles.filter(status='C').count()
+        }
+        
         if form.cleaned_data['search']:
             articles = articles.filter(title=form.cleaned_data['search'])
 
         context = { 'profile': profile,
                     'articles': articles,
-                    'articles_count': articles.count(),
+                    'articles_count': articles_count,
                     'form': form}
 
         return render(request, 'registration/user_home.html', context)

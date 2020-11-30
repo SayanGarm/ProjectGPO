@@ -6,7 +6,7 @@
 
 <br>
 <div class="row">
-	<div class="col-md">
+	<div class="col-md-6">
 		<div class="card card-body">
 			<h5>Мои данные</h5>
 			<hr>
@@ -18,11 +18,27 @@
 		</div>
 	</div>
 
-	<div class="col-md">
+	<div class="col-md-2">
 		<div class="card card-body">
-			<h5>Кол-во статей</h5>
+			<h5>Проверенные статьи <br></h5>
 			<hr>
-			<h1 style="text-align: center;padding: 10px">{{articles_count}}</h1>
+			<h1 style="text-align: center;padding: 10px">{{articles_count.A}}</h1>
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		<div class="card card-body">
+			<h5>Требуют исправления</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{articles_count.B}}</h1>
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		<div class="card card-body">
+			<h5>Ожидают проверки</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{articles_count.C}}</h1>
 		</div>
 	</div>
 </div>
@@ -44,12 +60,15 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
+			<h5>Мои статьи</h5>
+			<hr>
 			<table class="table table-sm">
 				<tr>
 					<th>Название</th>
 					<th>Дата публикации</th>
 					<th>Автор</th>
 					<th>Документ</th>
+					<th>Статус</th>
 				</tr>
 				{% for article in articles %}
 					<tr>
@@ -57,6 +76,7 @@
 						<td>{{article.published}}</td>
 						<td>{{article.author}}</td>
 						<td><a href="{{article.document.url}}">Ссылка</a></td>
+						<td>{{article.status}}</td>
 					</tr>
 				{% endfor %}
 			</table>

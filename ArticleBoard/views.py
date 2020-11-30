@@ -8,4 +8,4 @@ from django.urls import reverse_lazy
 
 
 def index(request) :
-    return render(request, 'ArticleBoard/index.html', {})
+    return render(request, 'Article/create_article.html', {})

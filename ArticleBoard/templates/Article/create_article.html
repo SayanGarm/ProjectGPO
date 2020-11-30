@@ -1,0 +1,22 @@
+{% extends "Article/layout/basic.html" %}
+
+{% block title %}Добавление статьи{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+			<h5>Мои данные</h5>
+			<hr>
+        <p>Логин: {{profile.user}}</p>
+        <p>Имя: {{profile.first_name}}</p>
+        <p>Отчество: {{profile.middle_name}}</p>
+        <p>Фамилия: {{profile.last_name}}</p>
+        <p>Email-адрес: {{profile.email}}</p>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

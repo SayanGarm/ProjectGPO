@@ -4,19 +4,36 @@
 
 {% block content %}
 
-<br>
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Мои данные</h5>
-			<hr>
-        <p>Логин: {{profile.user}}</p>
-        <p>Имя: {{profile.first_name}}</p>
-        <p>Отчество: {{profile.middle_name}}</p>
-        <p>Фамилия: {{profile.last_name}}</p>
-        <p>Email-адрес: {{profile.email}}</p>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+		
+			<br>
+			<div class="card w-100 h-100">
+				<h5 class="card-header">
+					Действия
+				</h5>
+				<div class="card-body">
+					<div class="d-flex flex-column">
+						<a class="btn btn-outline-secondary btn-block" href="#" role="button">Все статьи</a>
+						<a class="btn btn-outline-secondary btn-block" href="#" role="button">Все пользователи</a>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+		<div class="col-md-8 ">
+			<div class="d-flex flex-column justify-content-between">
+				<br>
+				{% include 'elements/user_info_card.html' %}
+				<br>
+				{% include 'elements/statistic_card.html' %}
+				<br>
+			</div>
 		</div>
 	</div>
+	<
 </div>
+
 
 {% endblock %}

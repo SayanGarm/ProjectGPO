@@ -45,6 +45,15 @@ class ModeratorPage(View):
     def get(self, request, *args, **kwargs):
         profile = Profile.objects.get(user=request.user)
 
-        context = { 'profile': profile }
+        articles = Article.objects.all()
+        articles_count = {
+            'A': articles.filter(status='A').count(),
+            'B': articles.filter(status='B').count(),
+            'C': articles.filter(status='C').count()
+        }
+        
+        context = { 'profile': profile,
+                    'articles_count': articles_count
+                  }
 
         return render(request, 'registration/moderator_home.html', context)

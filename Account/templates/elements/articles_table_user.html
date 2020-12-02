@@ -1,0 +1,29 @@
+{% extends "layout/articles_table.html" %}
+
+{% block title %}
+    <div class="col-md-auto"">
+        <h5>Мои статьи</h5>
+    </div>
+    <div class="col-md-auto"">
+        <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
+    </div>
+{% endblock %}
+
+{% block table %}
+<table class="table table-sm">
+    <tr>
+        <th>Название</th>
+        <th>Дата публикации</th>
+        <th>Документ</th>
+        <th>Статус</th>
+    </tr>
+    {% for article in articles %}
+        <tr>
+            <td>{{article.title}}</td>
+            <td>{{article.published}}</td>
+            <td><a href="{{article.document.url}}">Ссылка</a></td>
+            <td>{{article.status}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

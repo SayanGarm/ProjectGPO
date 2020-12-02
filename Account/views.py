@@ -21,8 +21,8 @@ class UserPage(View):
     def get(self, request, *args, **kwargs):
         profile = Profile.objects.get(user=request.user)
 
-        form = ArticleListForm(request.GET)
-        form.is_valid()
+        search_form = ArticleListForm(request.GET)
+        search_form.is_valid()
 
         articles = Article.objects.filter(author=request.user)
         articles_count = {
@@ -31,13 +31,13 @@ class UserPage(View):
             'C': articles.filter(status='C').count()
         }
         
-        if form.cleaned_data['search']:
-            articles = articles.filter(title=form.cleaned_data['search'])
+        if search_form.cleaned_data['search']:
+            articles = articles.filter(title=search_form.cleaned_data['search'])
 
         context = { 'profile': profile,
                     'articles': articles,
                     'articles_count': articles_count,
-                    'form': form}
+                    'search_form': search_form}
 
         return render(request, 'registration/user_home.html', context)
 

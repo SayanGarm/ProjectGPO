@@ -6,91 +6,12 @@
 
 <br>
 <div class="row">
-	<div class="col-md-6">
-		<div class="card card-body">
-			<h5>Мои данные</h5>
-			<hr>
-        <p>Логин: {{profile.user}}</p>
-        <p>Имя: {{profile.first_name}}</p>
-        <p>Отчество: {{profile.middle_name}}</p>
-        <p>Фамилия: {{profile.last_name}}</p>
-        <p>Email-адрес: {{profile.email}}</p>
-		</div>
-	</div>
-
-	<div class="col-md-2">
-		<div class="card card-body">
-			<h5>Проверенные статьи <br></h5>
-			<hr>
-			<h1 style="text-align: center;padding: 10px">{{articles_count.A}}</h1>
-		</div>
-	</div>
-
-	<div class="col-md-2">
-		<div class="card card-body">
-			<h5>Требуют исправления</h5>
-			<hr>
-			<h1 style="text-align: center;padding: 10px">{{articles_count.B}}</h1>
-		</div>
-	</div>
-
-	<div class="col-md-2">
-		<div class="card card-body">
-			<h5>Ожидают проверки</h5>
-			<hr>
-			<h1 style="text-align: center;padding: 10px">{{articles_count.C}}</h1>
-		</div>
-	</div>
+	{% include 'elements/user_info_card.html' %}
+	{% include 'elements/statistic_card.html' %}
 </div>
 
 <br>
-<div class="row">
-	<div class="col">
-		<div class="card card-body">
-			<form method="get">
-				{{form}}
-		    <button class="btn btn-primary" type="submit">Поиск</button>
-		  </form>
-		</div>
-	</div>
-	
-</div>
 
-<br>
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-
-			<div class="row justify-content-between">
-				<div class="col-md-auto"">
-					<h5>Мои статьи</h5>
-				</div>
-				<div class="col-md-auto"">
-					<a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
-				</div>
-			</div>
-
-			<hr>
-			<table class="table table-sm">
-				<tr>
-					<th>Название</th>
-					<th>Дата публикации</th>
-					<th>Автор</th>
-					<th>Документ</th>
-					<th>Статус</th>
-				</tr>
-				{% for article in articles %}
-					<tr>
-						<td>{{article.title}}</td>
-						<td>{{article.published}}</td>
-						<td>{{article.author}}</td>
-						<td><a href="{{article.document.url}}">Ссылка</a></td>
-						<td>{{article.status}}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		</div>
-	</div>
-</div>
+{% include 'elements/articles_table_user.html' %}
 
 {% endblock %}

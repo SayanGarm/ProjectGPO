@@ -1,0 +1,26 @@
+{% extends 'Article/layout/articles_table.html' %}
+
+{% block title %}
+    <h5 class="card-header">Все статьи</h5>
+{% endblock %}
+
+{% block table %}
+<table class="table table-sm">
+    <tr>
+        <th>Название</th>
+        <th>Дата публикации</th>
+        <th>Автор</th>
+        <th>Документ</th>
+        <th>Статус</th>
+    </tr>
+    {% for article in articles %}
+        <tr>
+            <td>{{article.title}}</td>
+            <td>{{article.published}}</td>
+            <td>{{article.author}}</td>
+            <td><a href="{{article.document.url}}">Ссылка</a></td>
+            <td>{{article.status}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

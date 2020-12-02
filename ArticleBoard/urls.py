@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import ArticleCreate, index
+from .views import ArticleCreate, ArticleList, index
 
 urlpatterns = [
     path('create/', ArticleCreate.as_view(), name='create_article'),
-    path('', index, name='index')
+    path('', ArticleList.as_view() , name='archive')
 ]

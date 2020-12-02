@@ -28,6 +28,11 @@ class ArticleCreate(View):
 
         return render(request, 'Article/create_article.html', {})
 
+class ArticleList(View):
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.all()
+        context = { 'articles': articles }
+        return render(request, 'Article/articles_table_page.html', context)
 
 
 def index(request) :

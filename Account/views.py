@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Profile
 from ArticleBoard.models import Article
 from ArticleBoard.forms import ArticleListForm
+from .decorators import allowed_roles
 
 def StartPageSwitch(request):
     groups = request.user.groups
@@ -59,10 +60,35 @@ class ModeratorPage(View):
         return render(request, 'registration/moderator_home.html', context)
 
 class UsersListPage(View):
+    @allowed_roles(roles=['moderator'])
     def get(self, request, *args, **kwargs):
         profiles = Profile.objects.get_customers()
-        print(profiles)
 
         context = { 'users': profiles ,}
 
         return render(request, 'registration/users_list.html', context)
+
+class UserProfilePage(View):
+    @allowed_roles(roles=['moderator'])
+    def get(self, request, pk):
+        profile = Profile.objects.get(id=pk)
+
+        search_form = ArticleListForm(request.GET)
+        search_form.is_valid()
+
+        articles = Article.objects.filter(author=profile.user)
+        articles_count = {
+            'A': articles.filter(status='A').count(),
+            'B': articles.filter(status='B').count(),
+            'C': articles.filter(status='C').count()
+        }
+        
+        if search_form.cleaned_data['search']:
+            articles = articles.filter(title=search_form.cleaned_data['search'])
+
+        context = { 'profile': profile,
+                    'articles': articles,
+                    'articles_count': articles_count,
+                    'search_form': search_form}
+
+        return render(request, 'registration/user_home.html', context)

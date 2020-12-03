@@ -57,3 +57,12 @@ class ModeratorPage(View):
                   }
 
         return render(request, 'registration/moderator_home.html', context)
+
+class UsersListPage(View):
+    def get(self, request, *args, **kwargs):
+        profiles = Profile.objects.get_customers()
+        print(profiles)
+
+        context = { 'users': profiles ,}
+
+        return render(request, 'registration/users_list.html', context)

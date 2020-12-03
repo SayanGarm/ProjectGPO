@@ -1,12 +1,16 @@
 {% extends "layout/data_table.html" %}
 
 {% block title %}
-    <div class="col-md-auto"">
-        <h5>Мои статьи</h5>
+<div class="card-header">
+    <div class="f-dlex flex-row justify-content-between">
+        <div class="col-md-auto"">
+            <h5>Мои статьи</h5>
+        </div>
+        <div class="col-md-auto"">
+            <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
+        </div>
     </div>
-    <div class="col-md-auto"">
-        <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
-    </div>
+</div>
 {% endblock %}
 
 {% block table %}

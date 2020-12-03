@@ -1,4 +1,5 @@
-
+{% if search_form %}
+<br>
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
@@ -8,22 +9,21 @@
 		  </form>
 		</div>
 	</div>
-	
 </div>
+{% endif %}
 
 <br>
 <div class="row">
 	<div class="col-md">
-		<div class="card card-body">
-
-			<div class="row justify-content-between">
-                {% block title %}
-                {% endblock %}
+		<div class="card">
+			{% block title %}
+			{% endblock %}
+			
+			<div class="card-body">
+                {% block table %}
+				{% endblock %}
 			</div>
 
-			<hr>
-                {% block table %}
-                {% endblock %}
 		</div>
 	</div>
 </div>

@@ -1,0 +1,13 @@
+{% extends 'Article/layout/card.html' %}
+
+{% block title %}
+    Информация о статье
+{% endblock %}
+
+{% block body %}
+    <p>Название: {{ article.title }}</p>
+    <p>Дата публикации:{{article.published}} </p>
+    <p>Автор: {{ article.author }}<p>
+    <p>Документ: <a href="{{article.document.url}}">Ссылка</a></p>
+    <p>Статус: {{ article.status }}</p>
+{% endblock %}

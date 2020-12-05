@@ -15,7 +15,7 @@
     </tr>
     {% for article in articles %}
         <tr>
-            <td>{{article.title}}</td>
+            <td><a href="{% url 'article_info' article.id %}">{{article.title}}</a></td>
             <td>{{article.published}}</td>
             <td>{{article.author}}</td>
             <td><a href="{{article.document.url}}">Ссылка</a></td>

@@ -1,16 +1,12 @@
 {% extends "layout/data_table.html" %}
 
 {% block title %}
-<div class="card-header">
+
     <div class="f-dlex flex-row justify-content-between">
-        <div class="col-md-auto"">
             <h5>Мои статьи</h5>
-        </div>
-        <div class="col-md-auto"">
             <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
-        </div>
     </div>
-</div>
+<hr>
 {% endblock %}
 
 {% block table %}
@@ -23,7 +19,7 @@
     </tr>
     {% for article in articles %}
         <tr>
-            <td>{{article.title}}</td>
+            <td><a href="{% url 'article_info' article.id %}">{{article.title}}</a></td>
             <td>{{article.published}}</td>
             <td><a href="{{article.document.url}}">Ссылка</a></td>
             <td>{{article.status}}</td>

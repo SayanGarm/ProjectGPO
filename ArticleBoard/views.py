@@ -41,10 +41,31 @@ class ArticleView(View):
     @allowed_roles(roles=['moderator', 'customer'])
     def get(self, request, pk):
         article = Article.objects.get(id=pk)
-        
-        context = {'article': article}
+        is_moder = request.user.groups.filter(name='moderator').exists()
+        context = { 'article': article,
+                    'is_moder': is_moder }
         return render(request, 'Article/article_page.html', context)
 
+class ReviewCreate(View):
+    def get(self, request, *args, **kwargs):
+        context = { 'form': ArticleForm}
+        return render(request, 'Article/create_article.html', context)
+    def post(self, request, *args, **kwargs):
+        form = ArticleForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            new_article = form.save(commit=False)
+            new_article.author = request.user
+            new_article.title = form.cleaned_data['title']
+            new_article.content = form.cleaned_data['content']
+            new_article.document = form.cleaned_data['document']
+            new_article.save()
+
+            return redirect('start-page-switch')
+           
+
+
+        return render(request, 'Article/create_article.html', {})
 
 def index(request) :
     return render(request, 'Article/create_article.html', {})

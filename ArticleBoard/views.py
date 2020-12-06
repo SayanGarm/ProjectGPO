@@ -4,8 +4,8 @@ from django.template import loader
 from django.views import View
 from django.urls import reverse_lazy
 
-from .forms import ArticleForm
-from .models import Article
+from .forms import ArticleForm, ReviewForm
+from .models import Article, Review
 from Account.decorators import allowed_roles, author_or_moder_only
 
 class ArticleCreate(View):
@@ -40,16 +40,15 @@ class ArticleView(View):
     @author_or_moder_only
     @allowed_roles(roles=['moderator', 'customer'])
     def get(self, request, pk):
-        article = Article.objects.get(id=pk)
+        this_article = Article.objects.get(id=pk)
         is_moder = request.user.groups.filter(name='moderator').exists()
-        context = { 'article': article,
-                    'is_moder': is_moder }
+        reviews = Review.objects.filter(article=this_article)
+        context = { 'article': this_article,
+                    'is_moder': is_moder,
+                    'reviews': reviews }
         return render(request, 'Article/article_page.html', context)
 
 class ReviewCreate(View):
-    def get(self, request, *args, **kwargs):
-        context = { 'form': ArticleForm}
-        return render(request, 'Article/create_article.html', context)
     def post(self, request, *args, **kwargs):
         form = ArticleForm(request.POST, request.FILES)
 

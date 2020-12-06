@@ -1,16 +1,30 @@
 {% extends 'Article/layout/card.html' %}
 
 {% block title %}
-    <div class="f-dlex flex-row justify-content-between">
-        <div class="col-md-auto"">
-            <h5>Рецензии</h5>
-        </div>
-        <div class="col-md-auto"">
-            <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить статью</a>
-        </div>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <h5>Рецензии</h5>
+        <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Добавить рецензию</a>
     </div>
 {% endblock %}
 
 {% block body %}
-
+<div class="accordion" id="accordionExample">
+    {% for review in reviews %}
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#Collapse{{review.id}}" aria-expanded="true" aria-controls="collapseOne">
+            {{ review.published }}
+          </button>
+        </h5>
+      </div>
+  
+      <div id="Collapse{{review.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            {% include 'Article/elements/review_info.html' %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 {% endblock %}

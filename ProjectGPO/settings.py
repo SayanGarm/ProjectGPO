@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Report.apps.ReportConfig',
     'Account.apps.AccountConfig',
     'ArticleBoard.apps.ArticleboardConfig',
     'django.contrib.admin',

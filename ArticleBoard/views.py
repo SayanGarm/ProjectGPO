@@ -25,8 +25,6 @@ class ArticleCreate(View):
 
             return redirect('start-page-switch')
            
-
-
         return render(request, 'Article/create_article.html', {})
 
 class ArticleList(View):
@@ -47,24 +45,18 @@ class ArticleView(View):
                     'is_moder': is_moder,
                     'reviews': reviews }
         return render(request, 'Article/article_page.html', context)
-
-class ReviewCreate(View):
-    def post(self, request, *args, **kwargs):
-        form = ArticleForm(request.POST, request.FILES)
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
 
         if form.is_valid():
-            new_article = form.save(commit=False)
-            new_article.author = request.user
-            new_article.title = form.cleaned_data['title']
-            new_article.content = form.cleaned_data['content']
-            new_article.document = form.cleaned_data['document']
-            new_article.save()
+            new_review = form.save(commit=False)
+            new_review.author = request.user
+            new_review.title = form.cleaned_data['title']
+            new_review.content = form.cleaned_data['content']
+            new_review.article = Article.objects.get(id=pk)
+            new_review.save()
 
-            return redirect('start-page-switch')
-           
-
-
-        return render(request, 'Article/create_article.html', {})
+        return self.get(request, pk)
 
 def index(request) :
     return render(request, 'Article/create_article.html', {})

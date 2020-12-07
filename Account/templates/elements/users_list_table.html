@@ -5,14 +5,17 @@
 {% endblock %}
 
 {% block table %}
-<table class="table table-sm">
-    <tr>
-        <th>Логин</th>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Email</th>
-    </tr>
-    {% for user in users %}
+<table class="table table-fluid table-sm" id="myTable">
+    <thead>
+        <tr>
+            <th>Логин</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
         <tr>
             <td><a href="{% url 'customer' user.id %}">{{user.user}}</a></td>
             <td>{{user.last_name}}</td>
@@ -20,5 +23,6 @@
             <td>{{user.email}}</td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

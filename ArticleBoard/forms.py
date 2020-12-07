@@ -10,7 +10,7 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ('title', 'content', 'document')
 
-class ReviewForm(forms.Form):
+class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('title', 'content')

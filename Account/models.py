@@ -8,7 +8,6 @@ class ProfileManager(models.Manager):
         for customer in customers:
             if (customer.user.groups.filter(name='customer').exists()):
                 cust.append(customer)
-                print(cust)
         return cust
 
 

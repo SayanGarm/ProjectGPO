@@ -5,14 +5,17 @@
 {% endblock %}
 
 {% block table %}
-<table class="table table-sm">
-    <tr>
+<table class="table table-fluid table-sm" id="myTable">
+    <thead>
+        <tr>
         <th>Название</th>
         <th>Дата публикации</th>
         <th>Автор</th>
         <th>Документ</th>
         <th>Статус</th>
-    </tr>
+        </tr>
+    </thead>
+   <tbody>
     {% for article in articles %}
         <tr>
             <td><a href="{% url 'article_info' article.id %}">{{article.title}}</a></td>
@@ -22,5 +25,9 @@
             <td>{{article.status}}</td>
         </tr>
     {% endfor %}
+   </tbody>
+    
 </table>
+
+
 {% endblock %}

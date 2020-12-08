@@ -4,6 +4,45 @@
 
 {% block content %}
 
+    {% if search_form %}    
+
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <form method="get">
+                    <div class="form-row">
+                        {% if is_moderator %}
+                            <div class="form-group col">
+                                <label for="id_author">Логин:</label>
+                                <input type="text" class="form-control" name="author" value="{{ form_input.author }}" id="id_author" list="logins" autocomplete="off">
+                                    <datalist id="logins">
+                                        {% for login in logins %}
+                                        <option value="{{ login }}"></option>
+                                        {% endfor %}
+                                    </datalist>
+                            </div>
+                        {% endif %}
+                        <div class="form-group col">
+                            <label for="id_status">Статус:</label>
+                            <select class="form-control" name="status" id="id_status">
+                                <option value="" selected>--------------</option>
+                                <option value="A">Проверена</option>
+                                <option value="B">Требует исправлений</option>
+                                <option value="C">Ожидает проверки</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
     {% include "Article/elements/article_table.html" %}
 
 {% endblock %}

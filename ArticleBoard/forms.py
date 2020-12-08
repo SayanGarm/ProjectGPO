@@ -1,9 +1,18 @@
 from django import forms
 
-from .models import Article, Review
+from .models import Article, Review, STATUS
+
 
 class ArticleListForm(forms.Form):
-    search = forms.CharField(required=False)
+    
+    STATUS =(   (None, '--------------'),
+                ('A', 'Проверена'),
+                ('B', 'Требует исправлений'),
+                ('C', 'Ожидает проверки') ) 
+
+    author = forms.CharField(required=False, label='Логин')
+    status = forms.ChoiceField(choices=STATUS, required=False, label='Статус')
+
         
 class ArticleForm(forms.ModelForm):
     class Meta:

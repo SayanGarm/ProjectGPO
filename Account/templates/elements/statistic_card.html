@@ -11,7 +11,9 @@
             <div class="card card-body text-white bg-success">
                 <h5>Проверенные статьи <br></h5>
                 <hr>
-                <h1 style="text-align: center;padding: 10px">{{articles_count.A}}</h1>
+                <h1 style="text-align: center;padding: 10px">
+                    <a class="text-white" href="/article/all/?status=A">{{articles_count.A}}</a>
+                </h1>
             </div>
         </div>
     
@@ -19,7 +21,9 @@
             <div class="card card-body text-white bg-danger">
                 <h5>Требуют исправления</h5>
                 <hr>
-                <h1 style="text-align: center;padding: 10px">{{articles_count.B}}</h1>
+                <h1 style="text-align: center;padding: 10px">
+                    <a class="text-white" href="/article/all/?status=B">{{articles_count.B}}</a>
+                </h1>
             </div>
         </div>
     
@@ -27,7 +31,9 @@
             <div class="card card-body text-white bg-warning">
                 <h5>Ожидают проверки</h5>
                 <hr>
-                <h1 style="text-align: center;padding: 10px">{{articles_count.C}}</h1>
+                <h1 style="text-align: center;padding: 10px">
+                    <a class="text-white" href="/article/all/?status=C">{{articles_count.C}}</a>
+                </h1>
             </div>
         </div>
 

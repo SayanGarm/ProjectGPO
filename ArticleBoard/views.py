@@ -5,9 +5,10 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.db.transaction import atomic
 
-from .forms import ArticleForm, ReviewForm
+from .forms import ArticleForm, ReviewForm, ArticleListForm
 from .models import Article, Review
 from Account.decorators import allowed_roles, author_or_moder_only
+from Account.models import Profile
 
 class ArticleCreate(View):
     def get(self, request, *args, **kwargs):
@@ -31,8 +32,27 @@ class ArticleCreate(View):
 class ArticleList(View):
     @allowed_roles(roles=['moderator', 'customer'])
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.getAllFromRole(request.user)
-        context = { 'articles': articles }
+        articles = Article.objects.all()
+        user = Profile.objects.get(user=request.user)
+        logins = Profile.objects.get_username()
+        search_form = ArticleListForm(request.GET)
+
+        if (user.is_customer()):
+            articles = articles.filter(author = request.user)
+
+        if (search_form.is_valid()):
+            _author = search_form.cleaned_data['author']
+            _status = search_form.cleaned_data['status']
+            if _author:
+                articles = articles.filter(author__username=_author)
+            if _status:
+                articles = articles.filter(status=_status)
+
+        context = { 'articles': articles,
+                    'logins': logins,
+                    'search_form': search_form,
+                    'form_input': search_form.cleaned_data,
+                    'is_moderator': user.is_moderator() }
         return render(request, 'Article/articles_table_page.html', context)
 
 class ArticleView(View):
@@ -43,6 +63,7 @@ class ArticleView(View):
         is_moder = request.user.groups.filter(name='moderator').exists()
         reviews = Review.objects.filter(article=this_article)
         context = { 'article': this_article,
+                    'article_status': this_article.get_status_display(),
                     'is_moder': is_moder,
                     'reviews': reviews }
         return render(request, 'Article/article_page.html', context)

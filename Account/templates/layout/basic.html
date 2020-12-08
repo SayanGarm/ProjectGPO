@@ -30,7 +30,7 @@
           </ul>
         </div>
       
-        <span class="hello-msg">Привет, {{request.user}}</span>
+        <span class="hello-msg">Привет, <a href="{% url 'start-page-switch' %}">{{request.user}}</a></span>
         <span><a class="hello-msg" href="{% url 'logout' %}">Выйти</a></span>
       </nav>
 

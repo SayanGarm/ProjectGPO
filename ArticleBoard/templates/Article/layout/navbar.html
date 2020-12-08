@@ -15,17 +15,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      {% if request.user.is_staff %}
-      <li class="nav-item active">
-        <a class="nav-link" href="">Dashboard</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="">Products</a>
-      </li>
-      {% endif %}
+
     </ul>
   </div>
 
-  <span class="hello-msg">Привет, {{request.user}}</span>
+  <span class="hello-msg">Привет, <a href="{% url 'start-page-switch' %}">{{request.user}}</a></span>
   <span><a class="hello-msg" href="{% url 'logout' %}">Выйти</a></span>
 </nav>

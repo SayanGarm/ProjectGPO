@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.views import View
 from django.urls import reverse_lazy
+from django.db.transaction import atomic
 
 from .forms import ArticleForm, ReviewForm
 from .models import Article, Review
@@ -23,14 +24,14 @@ class ArticleCreate(View):
             new_article.document = form.cleaned_data['document']
             new_article.save()
 
-            return redirect('start-page-switch')
+            return redirect('article_info', pk = new_article.id)
            
         return render(request, 'Article/create_article.html', {})
 
 class ArticleList(View):
     @allowed_roles(roles=['moderator', 'customer'])
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.all()
+        articles = Article.objects.getAllFromRole(request.user)
         context = { 'articles': articles }
         return render(request, 'Article/articles_table_page.html', context)
 
@@ -45,16 +46,24 @@ class ArticleView(View):
                     'is_moder': is_moder,
                     'reviews': reviews }
         return render(request, 'Article/article_page.html', context)
+    @atomic
     def post(self, request, pk):
         form = ReviewForm(request.POST)
+        article = Article.objects.get(id=pk)
 
         if form.is_valid():
             new_review = form.save(commit=False)
             new_review.author = request.user
             new_review.title = form.cleaned_data['title']
             new_review.content = form.cleaned_data['content']
+            new_review.status = form.cleaned_data['status']
             new_review.article = Article.objects.get(id=pk)
             new_review.save()
+
+            print(new_review.status)
+
+            article.status = new_review.status
+            print(article.save())
 
         return self.get(request, pk)
 

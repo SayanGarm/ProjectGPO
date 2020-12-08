@@ -91,4 +91,4 @@ class UserProfilePage(View):
                     'articles_count': articles_count,
                     'search_form': search_form}
 
-        return render(request, 'registration/user_home.html', context)
+        return render(request, 'registration/user_page.html', context)

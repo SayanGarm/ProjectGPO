@@ -13,6 +13,8 @@ class ArticleListForm(forms.Form):
     author = forms.CharField(required=False, label='Логин')
     status = forms.ChoiceField(choices=STATUS, required=False, label='Статус')
 
+    published_from = forms.DateField(required=False, label='От')
+
         
 class ArticleForm(forms.ModelForm):
     class Meta:

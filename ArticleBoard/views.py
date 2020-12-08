@@ -43,10 +43,13 @@ class ArticleList(View):
         if (search_form.is_valid()):
             _author = search_form.cleaned_data['author']
             _status = search_form.cleaned_data['status']
+            _published_from = search_form.cleaned_data['published_from']
             if _author:
                 articles = articles.filter(author__username=_author)
             if _status:
                 articles = articles.filter(status=_status)
+            if _published_from:
+                print(_published_from)
 
         context = { 'articles': articles,
                     'logins': logins,

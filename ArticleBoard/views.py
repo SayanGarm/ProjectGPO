@@ -118,10 +118,9 @@ class ArticleView(View):
             new_review.article = Article.objects.get(id=pk)
             new_review.save()
 
-            print(new_review.status)
-
             article.status = new_review.status
-            print(article.save())
+            article.save()
+
 
         return self.get(request, pk)
 

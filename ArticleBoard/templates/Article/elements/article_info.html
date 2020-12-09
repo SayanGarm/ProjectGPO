@@ -8,7 +8,9 @@
     {% if is_moder %}
     {% else %}
     <div class="col-md-auto p-0">
-        <a class="btn btn-danger" href="{% url 'update_article' article.id %}" role="button">Редактировать</a>
+        <a class="btn btn-warning" href="{% url 'update_article' article.id %}" role="button">Редактировать</a>
+        <a class="btn btn-danger" href="{% url 'delete_article' article.id %}" role="button">Удалить</a>
+
     </div>
     {% endif %}
 </div>

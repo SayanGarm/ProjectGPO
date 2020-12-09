@@ -39,8 +39,8 @@ class Article(models.Model):
 
 class Review(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
-    author = models.ForeignKey(User, null=True, on_delete=models.PROTECT, verbose_name='Автор')
-    article = models.ForeignKey(Article, on_delete=models.PROTECT, verbose_name='Статья')
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Автор')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Статья')
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')
     content = models.TextField(null=True, blank=True, verbose_name='Текст рецензии')
 

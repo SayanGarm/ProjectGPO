@@ -52,7 +52,15 @@ class ArticleUpdate(View):
         
         context = { 'article': article }
         return render(request, 'Article/update_article.html', context)
-        
+
+class ArticleDelete(View):
+    @author_or_moder_only
+    @allowed_roles(roles=['customer'])
+    def get(self, request, pk):
+        article = Article.objects.get(id=pk)
+        article.delete()
+        return redirect('archive')
+
 
 
 class ArticleList(View):

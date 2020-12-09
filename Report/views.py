@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from docxtpl import DocxTemplate
 from Account.models import Profile
+from Account.decorators import allowed_roles
 from ArticleBoard.models import Article
 from django.contrib.auth.models import User
 
@@ -13,6 +14,7 @@ from datetime import datetime, time
 
 
 class UserList(View):
+    @allowed_roles(roles = ['moderator'])
     def get(self, request, *args, **kwargs):
             doc = DocxTemplate("Report/templates/шаблон.docx")
 

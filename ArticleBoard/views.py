@@ -5,7 +5,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.db.transaction import atomic
 
-from .forms import ArticleForm, ReviewForm, ArticleListForm
+from .forms import ArticleForm, ReviewForm, ArticleListForm, ArticleUpdateForm
 from .models import Article, Review
 from Account.decorators import allowed_roles, author_or_moder_only
 from Account.models import Profile
@@ -28,6 +28,32 @@ class ArticleCreate(View):
             return redirect('article_info', pk = new_article.id)
            
         return render(request, 'Article/create_article.html', {})
+
+class ArticleUpdate(View):
+    @author_or_moder_only
+    @allowed_roles(roles=['customer'])
+    def get(self, request, pk):
+        this_article = Article.objects.get(id=pk)
+        context = { 'article': this_article }
+        return render(request, 'Article/update_article.html', context)
+    def post(self, request, pk):
+        form = ArticleUpdateForm(request.POST, request.FILES)
+        article = Article.objects.get(id=pk)
+
+        if form.is_valid():
+            article.title = form.cleaned_data['title']
+            article.content = form.cleaned_data['content']
+            if (form.cleaned_data['document']):
+                article.document = form.cleaned_data['document']
+            article.status = 'C'
+            article.save()
+
+            return redirect('article_info', pk = article.id)
+        
+        context = { 'article': article }
+        return render(request, 'Article/update_article.html', context)
+        
+
 
 class ArticleList(View):
     @allowed_roles(roles=['moderator', 'customer'])

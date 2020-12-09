@@ -1,7 +1,17 @@
 {% extends 'Article/layout/card.html' %}
 
 {% block title %}
-    Информация о статье
+<div class="d-flex align-items-center justify-content-between">
+    <div class="col-md-auto p-0">
+        <h5>Статья</h5>
+    </div>
+    {% if is_moder %}
+    {% else %}
+    <div class="col-md-auto p-0">
+        <a class="btn btn-danger" href="{% url 'update_article' article.id %}" role="button">Редактировать</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block body %}

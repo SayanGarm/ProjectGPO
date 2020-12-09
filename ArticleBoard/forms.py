@@ -21,6 +21,13 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ('title', 'content', 'document')
 
+class ArticleUpdateForm(forms.ModelForm):
+    document = forms.FileField(required=False, label='Документ(необязательно):')
+    class Meta:
+        model = Article
+        fields = ('title', 'content')
+
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review

@@ -24,7 +24,6 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=20,null=True, verbose_name='Имя')
     middle_name = models.CharField(max_length=20,null=True, verbose_name='Отчество')
     last_name = models.CharField(max_length=20,null=True, verbose_name='Фамилия')
-    email = models.EmailField(verbose_name='Email-адрес')
     objects = ProfileManager()
 
     bio = models.TextField(max_length=500, blank=True, verbose_name='Описание')

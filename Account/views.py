@@ -51,7 +51,8 @@ class ModeratorPage(View):
         }
         
         context = { 'profile': profile,
-                    'articles_count': articles_count
+                    'articles_count': articles_count,
+                    'is_moder': True
                   }
 
         return render(request, 'registration/moderator_home.html', context)

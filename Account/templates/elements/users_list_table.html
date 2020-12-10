@@ -20,7 +20,7 @@
             <td><a href="{% url 'customer' user.id %}">{{user.user}}</a></td>
             <td>{{user.last_name}}</td>
             <td>{{user.first_name}}</td>
-            <td>{{user.email}}</td>
+            <td>{{user.user.email}}</td>
         </tr>
     {% endfor %}
     </tbody>
